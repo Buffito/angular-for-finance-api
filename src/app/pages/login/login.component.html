@@ -2,10 +2,10 @@
     <h2>Login</h2>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label for="email">Email:</label>
-            <input id="email" type="email" formControlName="email" required />
-            <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-              Email is required
+            <label for="username">Username:</label>
+            <input id="username" type="username" formControlName="username" required autocomplete="off"/>
+            <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+              Username is required
             </div>
           </div>
           

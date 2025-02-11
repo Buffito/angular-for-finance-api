@@ -6,15 +6,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'https://api.example.com/auth'; 
+  private apiUrl = 'http://127.0.0.1:5000'; 
 
   constructor(private http: HttpClient) {}
 
-  login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials);
+  login(credentials: { username: string; password: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, credentials, {
+      headers: { 'Content-Type': 'application/json' } 
+    });
   }
 
-  register(userData: { name: string; email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, userData);
+  register(userData: { username: string; password: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, userData, {
+      headers: { 'Content-Type': 'application/json' } 
+    });
   }
 }
