@@ -1,24 +1,20 @@
-<div class="register-container">
-    <h2>Register</h2>
+<div class="register-container container text-center mt-3">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      
-      <div class="form-group">
+      <h3 class="mb-3 fw-normal">Register</h3>
+      <div class="form-floating">
+        <input class="form-control" id="username" type="text" formControlName="username" required autocomplete="off"/>
         <label for="username">Username:</label>
-        <input id="username" type="text" formControlName="username" required autocomplete="off"/>
-        <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
-          Username is required
-        </div>
       </div>
   
-      <div class="form-group">
+      <div class="form-floating">
+        <input class="form-control" id="password" type="password" formControlName="password" required autocomplete="off"/>
         <label for="password">Password:</label>
-        <input id="password" type="password" formControlName="password" required autocomplete="off"/>
-        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        <div class="text-danger fs-6" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
           Password must be at least 6 characters
         </div>
       </div>
   
-      <button type="submit" [disabled]="registerForm.invalid">Register</button>
+      <button class="w-100 btn btn-lg btn-primary mt-3" type="submit" [disabled]="registerForm.invalid">Register</button>
       <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
       <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
     </form>
