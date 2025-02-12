@@ -4,9 +4,9 @@ import { Injectable } from "@angular/core";
     providedIn: 'root'
 })
 export class AuthService{
-    saveAuthData(token: string, userId: number){
+    saveAuthData(token: string, id: number){
         sessionStorage.setItem('token', token);
-        sessionStorage.setItem('userId', userId.toString());
+        sessionStorage.setItem('userId', id.toString());
     }
 
     getToken(): string | null{

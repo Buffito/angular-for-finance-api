@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '..//../services/api.service';
 import { AuthService } from '..//../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule],
+  providers: [ApiService],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

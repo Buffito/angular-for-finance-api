@@ -31,7 +31,7 @@ export class LoginComponent {
       this.apiService.login(this.loginForm.value).subscribe({
         next: (response) => {
           console.log('Login successful:', response);
-          this.authService.saveAuthData(response.token, response.userId); 
+          this.authService.saveAuthData(response.access_token, response.id); 
           this.router.navigate(['/dashboard']); 
         },
         error: (error) => {
