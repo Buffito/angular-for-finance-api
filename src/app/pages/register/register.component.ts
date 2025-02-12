@@ -1,22 +1,16 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router'; 
 import { ApiService } from '..//../services/api.service';
-import {} from '@angular/common/http';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
-  imports: [ReactiveFormsModule, CommonModule, RouterModule, 
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule],
-  providers: [ApiService]
+    selector: 'app-login',
+    standalone: true,
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css'],
+    imports: [ReactiveFormsModule, CommonModule, RouterModule],
+    providers: [ApiService]
 })
 export class RegisterComponent {
   registerForm: FormGroup;
