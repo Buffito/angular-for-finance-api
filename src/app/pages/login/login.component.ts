@@ -32,7 +32,7 @@ export class LoginComponent {
         next: (response) => {
           console.log('Login successful:', response);
           this.authService.saveAuthData(response.token, response.userId); 
-          //this.router.navigate(['/']); // todo: make something to navigate to 
+          this.router.navigate(['/dashboard']); 
         },
         error: (error) => {
           console.error('Login failed:', error);

@@ -4,18 +4,19 @@ import { Injectable } from "@angular/core";
     providedIn: 'root'
 })
 export class AuthService{
-    saveAuthData(token: string, userId: string){
+    saveAuthData(token: string, userId: number){
         sessionStorage.setItem('token', token);
-        sessionStorage.setItem('userId', userId);
+        sessionStorage.setItem('userId', userId.toString());
     }
 
     getToken(): string | null{
         return sessionStorage.getItem('token');
     }
 
-    getUserId(): string | null{
-        return sessionStorage.getItem('userId');
-    }
+    getUserId(): number {
+        const userId = sessionStorage.getItem('userId');
+        return userId ? parseInt(userId, 10) : 0;
+      }
 
     clearAuthData(){
         sessionStorage.removeItem('token');
