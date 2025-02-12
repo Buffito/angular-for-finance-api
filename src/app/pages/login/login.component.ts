@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router'; 
 import { ApiService } from '..//../services/api.service';
-import { HttpClientModule } from '@angular/common/http';
+import {} from '@angular/common/http';
 import { AuthService } from '..//../services/auth.service';
 
 @Component({
@@ -12,7 +12,11 @@ import { AuthService } from '..//../services/auth.service';
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [ReactiveFormsModule, CommonModule, RouterModule, HttpClientModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, 
+// TODO: `HttpClientModule` should not be imported into a component directly.
+// Please refactor the code to add `provideHttpClient()` call to the provider list in the
+// application bootstrap logic and remove the `HttpClientModule` import from this component.
+HttpClientModule],
   providers: [ApiService]
 })
 export class LoginComponent {
