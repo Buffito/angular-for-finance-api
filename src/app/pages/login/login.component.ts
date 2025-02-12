@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router'; 
 import { ApiService } from '..//../services/api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '..//../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
+  constructor(private fb: FormBuilder, private apiService: ApiService, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -30,7 +31,7 @@ export class LoginComponent {
       this.apiService.login(this.loginForm.value).subscribe({
         next: (response) => {
           console.log('Login successful:', response);
-          localStorage.setItem('token', response.token); 
+          this.authService.saveAuthData(response.token, response.userId); 
           //this.router.navigate(['/']); // todo: make something to navigate to 
         },
         error: (error) => {
