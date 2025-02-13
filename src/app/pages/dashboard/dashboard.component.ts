@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '..//../services/api.service';
-import { AuthService } from '..//../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-dashboard',
@@ -14,16 +13,54 @@ import { RouterModule } from '@angular/router';
 })
 export class DashboardComponent implements OnInit{
   transactions: any[] = [];
+  countdown: number = 600;
+  interval: any;
+  formattedTime: string = '';
 
-  constructor(private apiService: ApiService, private authService: AuthService){}
+  constructor(private apiService: ApiService, private router: Router){
+    this.updateFormattedTime();
+    this.startCountdown();
+  }
 
   ngOnInit(): void {
     this.loadTransactions();
   }
 
   loadTransactions(){
-    this.apiService.getUserTransactions(this.authService.getUserId()).subscribe((data: any) => {
+    var userId = Number(sessionStorage.getItem('userId'));
+    if(isNaN(userId))
+      userId = 0;
+
+    this.apiService.getUserTransactions(userId).subscribe((data: any) => {
       this.transactions = data;
     });
+  }
+
+  logout() {
+    sessionStorage.clear(); 
+    this.router.navigate(['/login']); 
+  }
+
+  // added this so that we can see that the access token is valid for 10 minutes
+  // may add refresh to it
+  startCountdown() {
+    this.interval = setInterval(() => {
+      if (this.countdown > 0) {
+        this.countdown--;
+        this.updateFormattedTime();
+      } else {
+        clearInterval(this.interval);
+      }
+    }, 1000); 
+  }
+
+  updateFormattedTime() {
+    const minutes = Math.floor(this.countdown / 60);
+    const seconds = this.countdown % 60;
+    this.formattedTime = `${this.padZero(minutes)}:${this.padZero(seconds)}`;
+  }
+
+  padZero(value: number): string {
+    return value < 10 ? `0${value}` : `${value}`;
   }
 }

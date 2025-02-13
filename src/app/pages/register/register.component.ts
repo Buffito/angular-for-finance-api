@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '..//../services/api.service';
 
 @Component({
-    selector: 'app-login',
+    selector: 'app-register',
     standalone: true,
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.css'],

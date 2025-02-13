@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,35 +9,50 @@ import { AuthService } from './auth.service';
 export class ApiService {
   private apiUrl = 'http://127.0.0.1:5000'; 
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient) {}
 
   login(credentials: { username: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials, {
-      headers: { 'Content-Type': 'application/json' } 
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
     });
+
+    return this.http.post(`${this.apiUrl}/login`, credentials, { headers })
+    .pipe(
+      tap((response: any) => {
+        if (response.access_token) {
+          sessionStorage.setItem('authToken', response.access_token);  
+        }
+        if (response.id) {
+          sessionStorage.setItem('userId', response.id);  
+        }
+      })
+    );
   }
 
   register(userData: { username: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, userData, {
-      headers: { 'Content-Type': 'application/json' } 
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
     });
-  }
 
-  logout(): Observable<any>{
-    return this.http.post(`${this.apiUrl}/logout`, {
-      headers: { 'Authorization': 'Bearer '+  this.authService.getToken()} 
-    });
+    return this.http.post(`${this.apiUrl}/register`, userData, { headers });
   }
 
   getUserTransactions(userId: number):Observable<any> {
-    return this.http.get(`${this.apiUrl}/transactions/user/${userId}`, {
-      headers: { 'Authorization': 'Bearer '+  this.authService.getToken()} 
+    const token = sessionStorage.getItem('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
     });
+
+    return this.http.get(`${this.apiUrl}/transactions/user/${userId}`, { headers });
   }
 
   insertUserTransaction(userData: { transaction_type: { id: number }; amount: number; user_id: number }):Observable<any> {
-    return this.http.post(`${this.apiUrl}/transactions`, userData, {
-      headers: { 'Authorization': 'Bearer '+  this.authService.getToken()} 
+    const token = sessionStorage.getItem('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
     });
+
+    return this.http.post(`${this.apiUrl}/transactions`, userData, { headers });
   }
 }

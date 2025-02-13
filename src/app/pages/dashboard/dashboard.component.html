@@ -1,6 +1,24 @@
 <h2>Transactions</h2>
+<div class="countdown-container">
+  <h3>acces token countdown</h3>
+  <p>Time Left: <span>{{ formattedTime }}</span></p>
+</div>
+<button (click)="logout()">Logout</button>
 <ul>
-  <li *ngFor="let transaction of transactions">
-    {{ transaction.description }} - ${{ transaction.amount }}
-  </li>
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Amount (€)</th>
+        <th scope="col">Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td>{{ transaction.at_date }}</td>
+        <td>{{ transaction.amount }}</td>
+        <td>{{ transaction.transaction_type.name }}</td>
+      </tr>
+    </tbody>
+  </table>
 </ul>

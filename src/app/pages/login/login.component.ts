@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '..//../services/api.service';
-import { AuthService } from '..//../services/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -17,7 +16,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -29,7 +28,6 @@ export class LoginComponent {
       this.apiService.login(this.loginForm.value).subscribe({
         next: (response) => {
           console.log('Login successful:', response);
-          this.authService.saveAuthData(response.access_token, response.id); 
           this.router.navigate(['/dashboard']); 
         },
         error: (error) => {
