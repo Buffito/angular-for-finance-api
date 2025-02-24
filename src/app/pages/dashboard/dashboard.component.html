@@ -1,24 +1,39 @@
-<h2>Transactions</h2>
-<div class="countdown-container">
-  <h3>acces token countdown</h3>
-  <p>Time Left: <span>{{ formattedTime }}</span></p>
+<div class="p-2">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Transactions</h2>
+  
+    <div class="d-flex align-items-center gap-3">
+      <div class="countdown-container">
+        <p class="mb-0">Time Left: <span>{{ formattedTime }}</span></p>
+      </div>
+  
+      <button (click)="logout()" class="btn btn-danger">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </button>
+    </div>
+  </div>
+  
+  
+  <div *ngIf="hasTransactions; else noTransactions">
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Amount (€)</th>
+          <th scope="col">Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions">
+          <td>{{ transaction.at_date }}</td>
+          <td>{{ transaction.amount }}</td>
+          <td>{{ transaction.transaction_type.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <ng-template #noTransactions>
+    <p>You have no transactions yet.</p>
+  </ng-template>
 </div>
-<button (click)="logout()">Logout</button>
-<ul>
-  <table class="table table-bordered table-striped table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Date</th>
-        <th scope="col">Amount (€)</th>
-        <th scope="col">Type</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let transaction of transactions">
-        <td>{{ transaction.at_date }}</td>
-        <td>{{ transaction.amount }}</td>
-        <td>{{ transaction.transaction_type.name }}</td>
-      </tr>
-    </tbody>
-  </table>
-</ul>

@@ -13,10 +13,11 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class DashboardComponent implements OnInit{
   transactions: any[] = [];
+  hasTransactions = false;
   countdown: number = 600;
   interval: any;
   formattedTime: string = '';
-
+  
   constructor(private apiService: ApiService, private router: Router){
     this.updateFormattedTime();
     this.startCountdown();
@@ -33,6 +34,7 @@ export class DashboardComponent implements OnInit{
 
     this.apiService.getUserTransactions(userId).subscribe((data: any) => {
       this.transactions = data;
+      this.hasTransactions = this.transactions.length > 0;
     });
   }
 
