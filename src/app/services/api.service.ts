@@ -46,13 +46,13 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/transactions/user/${userId}`, { headers });
   }
 
-  insertUserTransaction(userData: { transaction_type: { id: number }; amount: number; user_id: number }):Observable<any> {
+  insertUserTransaction(transactionData: { amount: number, transaction_type: { id: number }, user_id: string }): Observable<any> {
     const token = sessionStorage.getItem('authToken');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
 
-    return this.http.post(`${this.apiUrl}/transactions`, userData, { headers });
+    return this.http.post(`${this.apiUrl}/transactions`, transactionData, { headers });
   }
 }
