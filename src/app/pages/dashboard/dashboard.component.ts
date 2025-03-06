@@ -4,21 +4,21 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'app-dashboard',
-    standalone: true,
-    imports: [CommonModule, RouterModule],
-    providers: [ApiService],
-    templateUrl: './dashboard.component.html',
-    styleUrl: './dashboard.component.css'
+  selector: 'app-dashboard',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  providers: [ApiService],
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit {
   transactions: any[] = [];
   hasTransactions = false;
   countdown: number = 600;
   interval: any;
   formattedTime: string = '';
-  
-  constructor(private apiService: ApiService, private router: Router){
+
+  constructor(private apiService: ApiService, private router: Router) {
     this.updateFormattedTime();
     this.startCountdown();
   }
@@ -27,9 +27,9 @@ export class DashboardComponent implements OnInit{
     this.loadTransactions();
   }
 
-  loadTransactions(){
+  loadTransactions() {
     var userId = Number(sessionStorage.getItem('userId'));
-    if(isNaN(userId))
+    if (isNaN(userId))
       userId = 0;
 
     this.apiService.getUserTransactions(userId).subscribe((data: any) => {
@@ -39,8 +39,8 @@ export class DashboardComponent implements OnInit{
   }
 
   logout() {
-    sessionStorage.clear(); 
-    this.router.navigate(['/login']); 
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
   }
 
   // added this so that we can see that the access token is valid for 10 minutes
@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit{
       } else {
         clearInterval(this.interval);
       }
-    }, 1000); 
+    }, 1000);
   }
 
   updateFormattedTime() {

@@ -5,12 +5,12 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '..//../services/api.service';
 
 @Component({
-    selector: 'app-login',
-    standalone: true,
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css'],
-    imports: [ReactiveFormsModule, CommonModule, RouterModule],
-    providers: [ApiService]
+  selector: 'app-login',
+  standalone: true,
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  providers: [ApiService]
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -28,7 +28,7 @@ export class LoginComponent {
       this.apiService.login(this.loginForm.value).subscribe({
         next: (response) => {
           console.log('Login successful:', response);
-          this.router.navigate(['/dashboard']); 
+          this.router.navigate(['/dashboard']);
         },
         error: (error) => {
           console.error('Login failed:', error);

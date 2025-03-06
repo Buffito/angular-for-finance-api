@@ -22,16 +22,17 @@ export class TransactionComponent {
     });
   }
 
-  onSubmit(){
-    if(this.transactionForm.valid){
+  onSubmit() {
+    if (this.transactionForm.valid) {
       const userId = sessionStorage.getItem('userId');
       if (userId) {
         const transactionData = {
           amount: this.transactionForm.value.amount,
           transaction_type: { id: this.transactionForm.value.type },
+          at_date: this.transactionForm.value.date,
           user_id: userId
         };
-  
+
         this.apiService.insertUserTransaction(transactionData).subscribe({
           next: (response) => {
             console.log('Transaction successful:', response);

@@ -1,19 +1,20 @@
 <div class="p-2">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="mb-0">Transactions</h2>
-  
+
     <div class="d-flex align-items-center gap-3">
       <div class="countdown-container">
-        <p class="mb-0">Time Left: <span>{{ formattedTime }}</span></p>
+        <p class="mb-0">
+          Time Left: <span>{{ formattedTime }}</span>
+        </p>
       </div>
-  
+
       <button (click)="logout()" class="btn btn-danger">
         <i class="bi bi-box-arrow-right"></i> Logout
       </button>
     </div>
   </div>
-  
-  
+
   <div *ngIf="hasTransactions; else noTransactions">
     <table class="table table-bordered table-striped table-hover">
       <thead>
@@ -32,13 +33,14 @@
       </tbody>
     </table>
   </div>
-  
+
   <ng-template #noTransactions>
     <p>You have no transactions yet.</p>
   </ng-template>
 
   <div class="d-flex align-items-center gap-3">
     <a routerLink="/transaction" class="btn btn-primary">
-      <i class="bi bi-plus-lg"></i> Add transaction</a>
+      <i class="bi bi-plus-lg"></i> Add transaction</a
+    >
   </div>
 </div>
