@@ -17,6 +17,7 @@ export class TransactionComponent {
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.transactionForm = this.fb.group({
+      date: ['', [Validators.required]],
       amount: ['', [Validators.required]],
       type: ['', [Validators.required]]
     });
