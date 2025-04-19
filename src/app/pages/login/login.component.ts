@@ -3,13 +3,17 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '..//../services/api.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatIconModule],
   providers: [ApiService]
 })
 export class LoginComponent {
@@ -27,12 +31,12 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.apiService.login(this.loginForm.value).subscribe({
         next: (response) => {
-          console.log('Login successful:', response);
+          //console.log('Login successful:', response);
           this.router.navigate(['/dashboard']);
         },
         error: (error) => {
-          console.error('Login failed:', error);
-          this.errorMessage = 'Invalid email or password';
+          //console.error('Login failed:', error);
+          this.errorMessage = 'Invalid username or password';
         }
       });
     }

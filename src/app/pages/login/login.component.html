@@ -1,41 +1,28 @@
-<div class="login-container container text-center mt-3">
+<div class="login-container">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <h3 class="mb-3 fw-normal">Login</h3>
-    <div class="form-floating">
-      <input
-        class="form-control"
-        id="username"
-        type="text"
-        formControlName="username"
-        required
-        autocomplete="off"
-      />
-      <label for="username">Username:</label>
-    </div>
+    <h2 class="login-title">Login</h2>
 
-    <div class="form-floating">
-      <input
-        class="form-control"
-        id="password"
-        type="password"
-        formControlName="password"
-        required
-        autocomplete="off"
-      />
-      <label for="password">Password:</label>
-    </div>
+    <mat-form-field appearance="fill" class="login-field">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" type="text" required autocomplete="off" />
+    </mat-form-field>
 
-    <button
-      class="w-100 btn btn-lg btn-primary mt-3"
-      type="submit"
-      [disabled]="loginForm.invalid"
-    >
+    <mat-form-field appearance="fill" class="login-field">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" type="password" required autocomplete="off" />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="login-button" type="submit" [disabled]="loginForm.invalid">
+      <mat-icon>login</mat-icon>
       Login
     </button>
-    <p *ngIf="errorMessage" class="error text-danger">{{ errorMessage }}</p>
+      
 
-    <p class="mt-1">
-      Don't have an account? <a routerLink="/register">Register here</a>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+    <p class="register-link">
+      Don't have an account?
+      <a routerLink="/register">Register here</a>
     </p>
   </form>
 </div>

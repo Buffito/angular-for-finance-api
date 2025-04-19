@@ -3,12 +3,18 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '..//../services/api.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select'; 
+import { MatOptionModule, MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { MatInputModule } from '@angular/material/input';    
+
 
 @Component({
   selector: 'app-transaction',
   templateUrl: './transaction.component.html',
   styleUrl: './transaction.component.css',
-  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, MatIconModule, MatSelectModule, MatOptionModule, MatDatepickerModule, MatNativeDateModule, MatInputModule],
   providers: [ApiService]
 })
 export class TransactionComponent {
@@ -36,11 +42,11 @@ export class TransactionComponent {
 
         this.apiService.insertUserTransaction(transactionData).subscribe({
           next: (response) => {
-            console.log('Transaction successful:', response);
+            //console.log('Transaction successful:', response);
             this.router.navigate(['/dashboard']);
           },
           error: (error) => {
-            console.error('Transaction failed:', error);
+            //console.error('Transaction failed:', error);
             this.errorMessage = 'Transaction failed';
           }
         });

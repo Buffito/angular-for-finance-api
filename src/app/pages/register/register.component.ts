@@ -3,13 +3,17 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '..//../services/api.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatIconModule],
   providers: [ApiService]
 })
 export class RegisterComponent {
@@ -28,11 +32,11 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       this.apiService.register(this.registerForm.value).subscribe({
         next: (response) => {
-          console.log('Registration successful:', response);
+          //console.log('Registration successful:', response);
           this.router.navigate(['/login']);
         },
         error: (error) => {
-          console.error('Registration failed:', error);
+          //console.error('Registration failed:', error);
           this.errorMessage = 'Registration failed. Try again.';
         }
       });

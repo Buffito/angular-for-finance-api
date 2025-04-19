@@ -1,18 +1,72 @@
 .login-container {
+  max-width: 400px;
+  margin: 5rem auto;
+  padding: 2rem;
+  background-color: #2a2a40; 
+  color: #f1f1f1;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+}
+
+.login-title {
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.login-field {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.login-button {
     width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
+    font-weight: 600;
+    font-size: 17px;
+    padding: 12px 0;
+    border-radius: 10px;
+    color: #fff;
+    background: linear-gradient(135deg, #42a5f5, #1e88e5);
+    box-shadow: 0 6px 18px rgba(33, 150, 243, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(33, 150, 243, 0.6);
+    }
+  
+    &:disabled {
+      opacity: 0.6;
+      pointer-events: none;
+      box-shadow: none;
+      background: #90caf9;
+    }
+  }
+  
+
+.error-message {
+  color: #f44336;
+  margin-top: 1rem;
+  text-align: center;
 }
 
-.login-container input[id="username"]{
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+.register-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 14px;
+
+  a {
+    color: #90caf9;
+    text-decoration: underline;
+
+    &:hover {
+      color: #42a5f5;
+    }
+  }
 }
 
-.login-container input[id="password"]{
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
+.login-button mat-icon {
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  

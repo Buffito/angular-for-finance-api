@@ -1,36 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '..//../services/api.service';
+import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatCardModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    MatChipsModule,
+  ],
   providers: [ApiService],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
   transactions: any[] = [];
   hasTransactions = false;
-  countdown: number = 600;
+  displayedColumns: string[] = ['date', 'amount', 'type'];
   interval: any;
   formattedTime: string = '';
 
-  constructor(private apiService: ApiService, private router: Router) {
-    this.updateFormattedTime();
-    this.startCountdown();
-  }
+  constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadTransactions();
   }
 
-  loadTransactions() {
-    var userId = Number(sessionStorage.getItem('userId'));
-    if (isNaN(userId))
+  loadTransactions(): void {
+    let userId = Number(sessionStorage.getItem('userId'));
+    if (isNaN(userId)) {
       userId = 0;
+    }
 
     this.apiService.getUserTransactions(userId).subscribe((data: any) => {
       this.transactions = data;
@@ -38,31 +49,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  logout() {
+  logout(): void {
     sessionStorage.clear();
     this.router.navigate(['/login']);
   }
 
-  // added this so that we can see that the access token is valid for 10 minutes
-  // may add refresh to it
-  startCountdown() {
-    this.interval = setInterval(() => {
-      if (this.countdown > 0) {
-        this.countdown--;
-        this.updateFormattedTime();
-      } else {
-        clearInterval(this.interval);
-      }
-    }, 1000);
-  }
-
-  updateFormattedTime() {
-    const minutes = Math.floor(this.countdown / 60);
-    const seconds = this.countdown % 60;
-    this.formattedTime = `${this.padZero(minutes)}:${this.padZero(seconds)}`;
-  }
-
-  padZero(value: number): string {
-    return value < 10 ? `0${value}` : `${value}`;
-  }
 }

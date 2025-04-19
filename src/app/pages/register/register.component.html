@@ -1,49 +1,31 @@
-<div class="register-container container text-center mt-3">
+<div class="register-container">
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <h3 class="mb-3 fw-normal">Register</h3>
-    <div class="form-floating">
-      <input
-        class="form-control"
-        id="username"
-        type="text"
-        formControlName="username"
-        required
-        autocomplete="off"
-      />
-      <label for="username">Username:</label>
-    </div>
+    <h2 class="register-title">Register</h2>
 
-    <div class="form-floating">
-      <input
-        class="form-control"
-        id="password"
-        type="password"
-        formControlName="password"
-        required
-        autocomplete="off"
-      />
-      <label for="password">Password:</label>
-      <div
-        class="text-danger fs-6"
-        *ngIf="
-          registerForm.get('password')?.invalid &&
-          registerForm.get('password')?.touched
-        "
-      >
-        Password must be at least 6 characters
-      </div>
-    </div>
+    <mat-form-field appearance="fill" class="register-field">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" type="text" required autocomplete="off" />
+    </mat-form-field>
 
-    <button
-      class="w-100 btn btn-lg btn-primary mt-3"
-      type="submit"
-      [disabled]="registerForm.invalid"
-    >
+    <mat-form-field appearance="fill" class="register-field">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" type="password" required autocomplete="off" />
+    </mat-form-field>
+
+    <p class="validation-text" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+      Password must be at least 6 characters
+    </p>
+
+    <button mat-raised-button color="accent" class="register-button" type="submit" [disabled]="registerForm.invalid">
+      <mat-icon>person_add</mat-icon>
       Register
     </button>
-    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-    <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
-  </form>
 
-  <p>Already have an account? <a routerLink="/login">Login</a></p>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+
+    <p class="login-redirect">
+      Already have an account? <a routerLink="/login">Login</a>
+    </p>
+  </form>
 </div>
