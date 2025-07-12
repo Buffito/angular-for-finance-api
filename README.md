@@ -1,6 +1,6 @@
-# Angular Frontend for Transactions API
+# Angular Frontend for Finance API
 
-This application serves as an interface to interact with and test the API endpoints in my [transactions API](https://github.com/Buffito/flask-transaction-api). It was created both as a test for the API and as an opportunity to learn Angular.
+This application serves as an interface to interact with and test the API endpoints in my [Finance API](https://github.com/Buffito/finance-api). It was created both as a test for the API and as an opportunity to learn Angular.
 
 ### Installation
 
